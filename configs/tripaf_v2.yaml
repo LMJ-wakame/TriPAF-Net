@@ -1,0 +1,59 @@
+project:
+  name: TriPAF-Net v2
+  architecture_version: 2
+  seed: 42
+
+model:
+  name: tripaf_v2
+  base_channels: 24
+  adaptive_fusion: true
+  residual_scale: 0.5
+  t_min: 0.08
+  priors: [dcp, bcp, sky]
+
+data:
+  publication_root: data/carla_tripaf_1024
+  hazy_dir: data/carla_tripaf_1024/images/hazy
+  clean_dir: data/carla_tripaf_1024/images/clear
+  metadata_csv: data/carla_tripaf_1024/metadata.csv
+  train_fraction: 0.70
+  val_fraction: 0.15
+  test_fraction: 0.15
+  crop_size: 512
+
+checkpoint:
+  output_dir: checkpoints/tripaf_v2
+  best: checkpoints/tripaf_v2/seed_42/best.pt
+  last: checkpoints/tripaf_v2/seed_42/last.pt
+
+training:
+  epochs: 20
+  batch_size: 2
+  accumulation_steps: 2
+  workers: 4
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+  amp: true
+  gradient_clip_norm: 1.0
+  ema_decay: 0.999
+  warmup_epochs: 3
+  resume: true
+  seeds: [42, 3407, 2026]
+
+loss:
+  charbonnier: 1.0
+  ssim: 0.2
+  gradient: 0.1
+  severity: 0.2
+  identity: 0.15
+  detector: 0.0
+  rank: 0.0
+  severity_gamma: 2.0
+
+evaluation:
+  checkpoint_selection: validation_multi_objective
+  selection_heavy_fog_weight: 0.25
+  selection_detector_weight: 0.10
+  bootstrap_samples: 2000
+  detector_confidence: 0.25
+  detector_iou: 0.70
