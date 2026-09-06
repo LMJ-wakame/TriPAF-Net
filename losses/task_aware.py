@@ -1,5 +1,3 @@
-"""Optional detail and detector criteria retained for controlled experiments."""
-
 from __future__ import annotations
 
 import os
@@ -21,7 +19,6 @@ from losses.ssim import ssim_loss
 def laplacian_pyramid_loss(
     prediction: torch.Tensor, target: torch.Tensor, levels: int = 3
 ) -> torch.Tensor:
-    """Match residual detail at several spatial scales."""
 
     total = prediction.new_zeros(())
     pred_level, target_level = prediction, target
@@ -70,8 +67,6 @@ def task_aware_restoration_loss(
         "edge_blend": ((1.0 - blend) * detail_energy).mean(),
     }
     weights = {
-        # MSE is explicit because PSNR is the primary v1 acceptance threshold;
-        # SSIM/color/detail terms retain v2's existing perceptual advantages.
         "mse": 1.0,
         "charbonnier": 0.75,
         "ssim": 0.25,
@@ -134,7 +129,7 @@ def detector_feature_loss(
     prediction: torch.Tensor,
     target: torch.Tensor,
 ) -> torch.Tensor:
-    """Match clear-image YOLO features while allowing gradients only to restoration."""
+    # match clear-image YOLO features while allowing gradients only to restoration.
 
     predicted_features = backbone(prediction)
     with torch.no_grad():
@@ -149,7 +144,7 @@ def detector_feature_loss(
 
 
 class FrozenYOLOTaskNetwork(nn.Module):
-    """Complete frozen YOLOv8 model for differentiable detection distillation."""
+    # Complete frozen YOLOv8 model for differentiable detection distillation."""
 
     def __init__(self, weights: str | Path) -> None:
         super().__init__()
@@ -187,7 +182,7 @@ def detection_distillation_loss(
     prediction: torch.Tensor,
     target: torch.Tensor,
 ) -> torch.Tensor:
-    """Match clear-image pre-NMS class, box-distribution, and neck features."""
+    # Match clear-image pre-NMS class, box-distribution, and neck features.
 
     predicted = detector(prediction)
     with torch.no_grad():
