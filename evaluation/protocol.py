@@ -1,5 +1,3 @@
-"""Guardrails for the locked validation/test protocol."""
-
 from __future__ import annotations
 
 
