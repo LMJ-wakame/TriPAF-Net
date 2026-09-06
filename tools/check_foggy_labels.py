@@ -1,5 +1,3 @@
-"""Validate, repair, summarize, and visualize Foggy Cityscapes YOLO labels."""
-
 from __future__ import annotations
 
 import argparse
