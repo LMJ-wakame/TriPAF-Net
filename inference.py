@@ -1,5 +1,3 @@
-"""Single-image inference for the official TriPAF-Net v2 checkpoint."""
-
 from __future__ import annotations
 
 import argparse
