@@ -1,5 +1,3 @@
-"""Configuration-driven, resumable training for official TriPAF-Net v2."""
-
 from __future__ import annotations
 
 import argparse
@@ -54,7 +52,6 @@ def move_batch(
 
 
 class FogSupervisedDataset(Dataset):
-    """Attach CARLA fog density from the locked metadata manifest."""
 
     def __init__(
         self, dataset: PairedDehazeDataset, fog_by_id: dict[str, float]
@@ -81,7 +78,6 @@ def read_locked_splits(
     metadata_csv: str | Path,
     available_ids: set[str],
 ) -> tuple[dict[str, list[str]], dict[str, float], str]:
-    """Read one immutable split assignment shared by every training seed."""
 
     path = Path(metadata_csv)
     if not path.is_file():
@@ -208,7 +204,6 @@ def validate(
     heavy_fog_weight: float,
     detector_weight: float,
 ) -> float:
-    """Validation-only restoration, heavy-fog, and detector-consistency score."""
 
     model.eval()
     psnr_sum = 0.0
