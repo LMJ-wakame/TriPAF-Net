@@ -1,5 +1,3 @@
-"""Evaluate YOLO on identically named clear/hazy/dehazed image variants."""
-
 from __future__ import annotations
 
 import argparse
