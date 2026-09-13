@@ -9,9 +9,13 @@ TriPAF-Net is a physics-guided dual-stream network for driving-scene dehazing. I
 ### Highlights
 
 - **Explicit physical-prior stream:** DCP, BCP, and the sky mask remain interpretable inputs rather than a one-shot preprocessing result.
+
 - **Input-conditioned fusion:** channel, spatial, haze-context, and high-frequency evidence control prior and detail gates at five scales.
+
 - **Matched fixed-gate control:** TriPAF-Net Fixed sets both gates to 0.5 while retaining the remaining network structure.
+
 - **Hybrid reconstruction:** direct, learned-physical, and deterministic-prior candidates are combined before bounded inference stabilization.
+
 - **Perception-oriented evaluation:** restoration metrics and frozen-detector metrics are reported separately.
 
   ### Method
@@ -124,3 +128,12 @@ Data, checkpoint, YOLO-weight, and output paths can be overridden through script
   utils/                   priors, inference, EMA, and image I/O
 ```
 
+## Environment
+
+| **Project**                   | **Configuration**                              |
+| ----------------------------- | ---------------------------------------------- |
+| Operating System / Hardware   | Windows 11; NVIDIA GeForce RTX 3060 Ti         |
+| Python                        | 3.12.13                                        |
+| PyTorch / CUDA                | PyTorch 2.13.0+cu126; CUDA 12.6; FP16 autocast |
+| Image Processing              | OpenCV, Pillow, scikit-image                   |
+| Simulation & Object Detection | CARLA; Ultralytics YOLOv8m 8.4.125             |
